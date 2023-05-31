@@ -25,8 +25,26 @@
 		<tr><th>이메일</th>
 		<td><input type='text' name="email"></td>
 		</tr>
+		
+		<tr><th>나이</th>
+		<td><input type='text' name="age"></td>
+		</tr>
+		
 	</table>
-	<input type="submit" value="회원가입">
+	<input type="submit" value="회원가입(HttpServletRequest)">
+	<input type="submit" value="@RequestParam" onclick="action='joinParam'">
+	<input type="submit" value="데이터객체" onclick="action='joinDataObject'">
+	<input type="submit" value="@pathVariable" onclick="go_path(this.form)">
+	
+	
+	<script>
+	function go_path(f){
+		//action='joinPath/홍길동/남/hong@naver.com/20'
+		f.action = 'joinPath/'+f.name.value+'/'+f.gender.value
+				+'/'+f.email.value+'/'+f.age.value;
+	}
+	
+	</script>
 </form>
 
 
