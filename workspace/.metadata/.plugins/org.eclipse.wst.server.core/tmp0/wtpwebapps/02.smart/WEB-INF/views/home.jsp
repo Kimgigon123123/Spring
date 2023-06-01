@@ -6,6 +6,8 @@
 </head>
 <body>
 <h3>스마트 웹&amp;앱 과정
+<img style="width: 100%" src="img/hanul.png">	  
+	  
 	  
 </h3>
 

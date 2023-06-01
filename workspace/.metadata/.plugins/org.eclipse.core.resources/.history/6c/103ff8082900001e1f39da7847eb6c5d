@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+a {color:initial}
+a:link{ text-decoration:none; color:inherit; }
+
+table{width:100%;boredr-top:2px solid #666; color: #666;}
+table th, table td { border-right:1px solid #ddd; 
+					 border-botom: 1px soild #ddd;
+					 padding:10px 16px;
+					 }
