@@ -1,0 +1,36 @@
+package com.my.app;
+
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+import member.MemberImpl;
+import member.MemberVO;
+
+
+
+@Controller
+public class MemberController {
+	@Autowired private MemberImpl service;
+	
+
+	
+	@RequestMapping("/member")
+	public String member(HttpSession session,Model model) {
+		//비지니스로직 - DB에서 고객목록을 조회한다
+				List<MemberVO> list =service.member_list();
+				model.addAttribute("list",list);
+				//응답화면연결
+		
+	
+		return "/member/member";
+	}
+	
+}	

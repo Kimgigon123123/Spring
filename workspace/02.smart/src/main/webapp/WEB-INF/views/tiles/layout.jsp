@@ -26,6 +26,9 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css?<%=new java.util.Date() %>" rel="stylesheet" />
         <link href="css/common.css?<%=new java.util.Date() %>" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+   		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" ></script>
+   
     </head>
     <body>
         <div class="d-flex" id="wrapper">

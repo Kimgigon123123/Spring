@@ -1,0 +1,23 @@
+package com.my.app;
+
+import javax.sql.DataSource;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class LoginController {
+
+	@Autowired private DataSource ds;
+	@Autowired private SqlSession sql;
+	
+	@RequestMapping("/login")
+	public String login() {
+		System.out.println("로그인화면으로감");
+		return "login/login";
+	}
+	
+	
+}
