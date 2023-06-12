@@ -1,0 +1,4 @@
+oracle.driver = net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+oracle.url=jdbc:log4jdbc:oracle:thin:@192.168.0.36:1521:xe
+hanul.username=hanul
+oracle.password=0000

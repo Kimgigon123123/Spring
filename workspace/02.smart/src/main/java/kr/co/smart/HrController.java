@@ -1,5 +1,6 @@
 package kr.co.smart;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import smart.customer.CustomerVO;
 import smart.hr.EmployeeVO;
 import smart.hr.HrDAO;
 
@@ -16,7 +18,34 @@ import smart.hr.HrDAO;
 public class HrController {
 	@Autowired private HrDAO service;
 	
+	// 사원정보 삭제처리 요청
+	@RequestMapping("/delete")
+	public String delete(int id) {
+		// 해당 사원정보를 DB에서 삭제한 후
+		service.employee_delete(id);
+		// 목록화면연결
+		return "redirect:list";
+	}
+	
 	// 사원 정보 수정저장처리 요청
+	
+	@RequestMapping("/new")
+	public String register(Model model) {
+		model.addAttribute("departments", service.department_list());
+		model.addAttribute("jobs", service.job_list());
+		EmployeeVO vo = new EmployeeVO();
+		model.addAttribute("vo", vo);
+		return "hr/new";
+	}
+	
+	@RequestMapping("/register")
+	public String register(EmployeeVO vo) {
+		// 비지니스로직: 화면에서 입력한 정보를 DB에 신규저장한 후
+		service.employee_insert(vo);
+		// 프리젠테이션로직(응답화면연결): 목록화면
+		
+		return "redirect:list";
+	}
 	
 	@RequestMapping("/update")
 	public String update(EmployeeVO vo) {

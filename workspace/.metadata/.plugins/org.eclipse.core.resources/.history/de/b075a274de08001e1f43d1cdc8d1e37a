@@ -1,0 +1,29 @@
+package com.my.app;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+@Controller // 1. 컨트롤러 생성 @Controller
+public class TestController {
+
+	String hi ="안녕";
+	
+	// 2. 어떤 요청에 대해 연결할 것인지 지정 @RequestMapping()
+	@RequestMapping("/first")
+	public String view (Model model) {
+		model.addAttribute("hi",hi);
+		return "index";
+	}
+	
+	@RequestMapping("table")
+	public String table() {
+		return "member/tabletest";
+	}
+	
+	
+
+	
+	
+}
