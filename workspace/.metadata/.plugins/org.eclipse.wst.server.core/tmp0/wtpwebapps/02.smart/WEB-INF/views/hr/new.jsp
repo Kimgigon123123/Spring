@@ -20,12 +20,12 @@
 	<tr>
 		<th>사원명</th>
 		<td><div class="row">
-		<input type="hidden" name="employee_id" value="${vo.employee_id}">
+		
 				<div class="col-auto">
-					<input type="text" class="form-control" required name="last_name" value="${vo.last_name }"> 
+					<input type="text" class="form-control" required placeholder="성" name="last_name" value="${vo.last_name }"> 
 				</div>
 				<div class="col-auto">
-					<input type="text" class="form-control" name="first_name" value="${vo.first_name }"> 
+					<input type="text" class="form-control" placeholder="이름" name="first_name" value="${vo.first_name }"> 
 				</div>
 			</div>
 		</td>
@@ -60,7 +60,7 @@
 		<th>입사일자</th>
 		<td><div class="row">
 				<div class="col-auto">
-					<input type="text" class="form-control date" name="hire_date" value="${vo.hire_date }"> 
+					<input type="text" class="form-control date" required name="hire_date" value="${vo.hire_date }"> 
 				</div>
 			</div></td>
 	</tr>
@@ -99,6 +99,13 @@
 
 </form>
 
+<script>
+$(function(){
+	$('[name=hire_date]').val(new Date().toJSON().substr(0,10))
+})
+
+
+</script>
 
 
 </body>

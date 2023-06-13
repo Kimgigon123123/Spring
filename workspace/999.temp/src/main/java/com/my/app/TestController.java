@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import customer.MemberVO;
+
 
 @Controller // 1. 컨트롤러 생성 @Controller
 public class TestController {
@@ -38,6 +40,27 @@ public class TestController {
 		model.addAttribute("method", "HttpServletRequest");
 		
 		return "member/info";
+	}
+	
+	@RequestMapping("/joinDataObject")
+	public String join(MemberVO vo, Model model){
+		model.addAttribute("vo",vo);
+		return "member/info";
+	}
+	
+	@RequestMapping("/login")
+	public String login() {
+		return "member/login";
+	}
+	
+	@RequestMapping("/login_result")
+	public String login(String id, String pw) {
+		if(id.equals("hong")&&pw.equals("1234")) {
+			return "redirect:/";
+		}
+		else {
+			return "redirect:login";
+		}
 	}
 
 	

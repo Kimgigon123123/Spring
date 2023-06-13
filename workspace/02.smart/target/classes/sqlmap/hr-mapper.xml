@@ -7,7 +7,11 @@
 insert into employees(employee_id,first_name,last_name,email,phone_number,salary,hire_date,department_id,job_id) 
 VALUES ( employees_seq.nextval, #{first_name}, #{last_name}, #{email}, 
 					#{phone_number}, #{salary}, #{hire_date}, 
-					#{department_id}, #{job_id})
+					
+					<choose><when test="department_id ==-1">null</when>
+							<otherwise>#{department_id}</otherwise>
+					</choose>
+					, #{job_id})
 </insert>
 
 <!--  사원정보 삭제 -->

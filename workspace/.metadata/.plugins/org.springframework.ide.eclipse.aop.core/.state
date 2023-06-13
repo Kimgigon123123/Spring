@@ -4,4 +4,5 @@
 <aop-project name="01.web"/>
 <aop-project name="99.test"/>
 <aop-project name="999.temp"/>
+<aop-project name="999.test"/>
 </aop-reference-model>

@@ -17,6 +17,8 @@
 	<a href="<c:url value='/member'/>">회원가입화면으로</a>
 	
 	<h3>데이터 객체로 해보기</h3>
-	
+	성명 ${vo.name }<br>
+	성별 ${vo.gender }<br>
+	이메일 ${vo.email }
 </body>
 </html>

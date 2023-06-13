@@ -27,8 +27,11 @@
 	
 	</table>
 	<input type="submit" value="회원가입">
+	<input type="submit" onclick="action='joinDataObject'"value="데이터객체">
 	
 	
 	</form>
+	
+	
 </body>
 </html>
