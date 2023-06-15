@@ -7,6 +7,10 @@
  	<definition name="*" template="/WEB-INF/views/tiles/layout.jsp">
  		<put-attribute name="container" value="/WEB-INF/views/{1}.jsp"/>
  	</definition>
+ 	
+ 	<definition name="*/*" template="/WEB-INF/views/tiles/layout.jsp">
+ 		<put-attribute name="container" value="/WEB-INF/views/{1}/{2}.jsp"/>
+ 	</definition>
  <!--customer/list,customer/new,customer/info 
  		notice/list,board/new 
  	-->

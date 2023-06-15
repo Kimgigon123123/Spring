@@ -21,6 +21,17 @@ public class MemberController {
 	@Autowired private MemberDAO service;
 	@Autowired private BCryptPasswordEncoder pwEncoder;
 	
+	
+	//비밀번호 변경화면 요청
+	@RequestMapping("/changePassword")
+	public String change(HttpSession session) {
+		MemberVO vo = (MemberVO)session.getAttribute("loginInfo");
+		if( vo==null ) 	return "redirect:login"; 
+		else 			return "member/change";
+	}
+	
+	
+	
 	//비밀번호 찾기처리 요청
 	@ResponseBody 
 	@RequestMapping(value="/resetPassword", produces="text/html; charset=utf-8")

@@ -62,11 +62,11 @@ public class CustomerController {
 	
 	//고객정보 변경저장 처리 요청
 	@RequestMapping("/update.cu")
-	public String update(CustomerVO vo) {
+	public String update(CustomerVO vo,int id) {
 		// 비지니스로직 : 화면에서 변경입력한 정보를 DB에 변경저장한 후
 		service.customer_update(vo);
 		// 프리젠테이션로직: 응답화면연결 - 정보화면
-		return "redirect:info.cu?id="+vo.getId();
+		return "redirect:info.cu?id="+id;
 	}
 	
 	//고객정보 삭제처리 요청
