@@ -4,8 +4,8 @@
 
 var member = {
 	// 태그별로 상태확인
-	tagStatus: function( tag ){
-		if( tag.is("[name=userpw]") )			return this.userpwStatus( tag.val() );
+	tagStatus: function( tag, input ){
+		if( tag.is("[name=userpw]") )			return this.userpwStatus( tag.val(),input );
 		else if ( tag.is("[name=userpw_ck]") )	return this.userpwCheckStatus( tag.val() );
 	},
 	
@@ -22,18 +22,24 @@ var member = {
 		invalid: { is:false,  desc:'영문 대/소문자, 숫자만 입력하세요' },
 		lack:    { is:false,  desc:'영문 대/소문자, 숫자를 모두 포함해야 합니다'},
 		valid:   { is:true,   desc:'사용가능합니다' },
-		equal:   { is:true,	  desc:'비밀번화와 일치합니다.'},
+		equal:   { is:true,	  desc:'비밀번호와 일치합니다.'},
 		notEqual:{ is:false,  desc:'비밀번호가 일치하지 않습니다.'}
 	},
 	
-	showStatus: function( target ){
-		var status = this.tagStatus( target )
+	showStatus: function( target){
+		var status = this.tagStatus( target,true )
 		target.closest('.input-check').find('.desc').text( status.desc )
 						.removeClass('text-success text-danger')
 						.addClass(status.is?'text-success' : 'text-danger')
 	},
 	
-	userpwStatus: function( pw ){
+	//비밀번호를 다시 입력할때 비밀번호확인 항목을 초기화 처리 추가
+	userpwStatus: function( pw,input ){
+		if(input){
+			$('[name=userpw_ck]').val('');
+			$('[name=userpw_ck]').closest('.input-check').find('.desc').text('')
+								 .removeClass('text-success text-danger');
+		}
 		var reg = /[^A-Za-z0-9]/g, upper = /[A-Z]/g, lower = /[a-z]/g, digit = /[0-9]/g ;
 		if( pw=="" )					return this.common.empty;
 		else if( pw.match(this.space) )	return this.common.space;
