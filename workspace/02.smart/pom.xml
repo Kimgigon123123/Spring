@@ -19,6 +19,17 @@
 	
 	<dependencies>
 	
+	
+	<!-- json 데이터 객체용 라이브러리 -->
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20230227</version>
+</dependency>
+	
+	
+	
+	
 <!-- 	서버에서 클라이언트에게 문자열이 아닌 값을 보낼때 Java객체를 json으로 변환 라이브러리 -->
 
 

@@ -18,6 +18,10 @@ import smart.hr.HrDAO;
 public class HrController {
 	@Autowired private HrDAO service;
 	
+	
+	
+	
+	
 	// 사원정보 삭제처리 요청
 	@RequestMapping("/delete")
 	public String delete(int id) {
