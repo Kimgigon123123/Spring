@@ -21,6 +21,30 @@ public class MemberController {
 	@Autowired private MemberDAO service;
 	@Autowired private BCryptPasswordEncoder pwEncoder;
 	
+	//SGPA3Gk6ofZP6hpCQ8EC 2p6ISYk7ze
+	private String NAVER_ID = "SGPA3Gk6ofZP6hpCQ8EC";
+	private String NAVER_SECRET="2p6ISYk7ze";
+	
+	//네이버로그인처리 요청
+	@RequestMapping("/naverLogin")
+	public void naverLogin(HttpSession session) {
+		// 네이버 로그인 연동 URL 생성하기
+		//https://nid.naver.com/oauth2.0/authorize?response_type=code
+//		&client_id=CLIENT_ID
+//		&state=STATE_STRING
+//		&redirect_uri=CALLBACK_URL
+		String state=UUID.randomUUID().toString();
+		session.setAttribute("state", state);
+		
+		StringBuffer url = new StringBuffer(
+				"https://nid.naver.com/oauth2.0/authorize?response_type=code");
+		url.append("&client_id=").append(NAVER_ID);
+		url.append("&state=").append(state);
+		url.append("&redirect_uri=").append("http://localhost:8080/smart/member/naverCallback");
+		
+	}
+	
+	
 	//로그아웃 처리 요청
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {

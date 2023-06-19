@@ -12,7 +12,7 @@ public class CommonUtility {
 
 	private void emailServerConnect(HtmlEmail email) {
 		email.setHostName("smtp.naver.com"); //메일서버지정
-		email.setAuthentication("kgg990321", "Kjh6877h!!"); //아이디/비번 으로 로그인
+		email.setAuthentication("kgg990321", "비밀번호"); //아이디/비번 으로 로그인
 		email.setSSLOnConnect(true); // 로그인버튼 클릭
 	}
 	private String EMAIL_ADDRESS = "kgg990321@naver.com";
