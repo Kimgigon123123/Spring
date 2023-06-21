@@ -28,6 +28,14 @@ public class MemberController {
 	private MemberDAO service;
 	@Autowired
 	private BCryptPasswordEncoder pwEncoder;
+	
+	
+	//회원가입 화면 요청
+	@RequestMapping("/join")
+	public String join(HttpSession session) {
+		session.setAttribute("category", "join");
+		return "member/join";
+	}
 
 	// SGPA3Gk6ofZP6hpCQ8EC 2p6ISYk7ze
 	private String KAKAO_ID = "f590b6c3a2f0f101c550477871a90924";

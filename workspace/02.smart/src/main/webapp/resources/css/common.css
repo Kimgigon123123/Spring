@@ -55,3 +55,15 @@ a.text-link:hover {
 .font-profile {
 	font-size: 38px;
 }
+
+input[type=file]{ display:none
+
+} /* 기본 파일 태그는 안보이게 */
+
+.file-preview img{max-height:38px;}
+
+.w-px100 {width:100px;}
+.w-px90 {width:90px;}
+.w-px80 {width:80px;}
+
+.date + .date-delete { position:relative;right:34px; display:none;}
