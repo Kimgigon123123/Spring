@@ -1,20 +1,47 @@
 package smart.common;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import smart.member.MemberVO;
 
 @Service
 public class CommonUtility {
 
+	
+	//파일업로드
+	public String fileUpload(String category,MultipartFile file,HttpServletRequest request) {
+		String path = request.getSession().getServletContext().getRealPath("resources");
+		String upload = "/upload/"+category+ new SimpleDateFormat("/yyyy/MM/dd").format(new Date());
+			path += upload;
+			File folder = new File(path);
+			if(!folder.exists()) {
+				folder.mkdirs();
+				
+			}
+			String name = UUID.randomUUID().toString()+"_"+ file.getOriginalFilename();
+			try {
+				file.transferTo(new File(path,name));
+			} catch (Exception e) {
+				
+			}
+			return appURL(request)+upload+"/"+name;
+	}
+	
+	
 	private void emailServerConnect(HtmlEmail email) {
 		email.setHostName("smtp.naver.com"); //메일서버지정
 		email.setAuthentication("kgg990321", "비밀번호"); //아이디/비번 으로 로그인

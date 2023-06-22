@@ -20,6 +20,17 @@
 	<dependencies>
 	
 	
+	
+	<!-- 첨부파일 업로드용 라이브러리 -->
+<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.5</version>
+</dependency>
+	
+	
+	
+	
 	<!-- json 데이터 객체용 라이브러리 -->
 <dependency>
     <groupId>org.json</groupId>

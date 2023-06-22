@@ -55,63 +55,73 @@ function modalAlert( type, title, message ){
 
 
 //동적으로 만들어진 요소에 대해서는 document에 이벤트를 등록해야 한다
-$(document).on('click','.date+.date-delete',function(){
-	$(this).css('display','none');//삭제버튼 안보이게
-	$(this).prev('.date').val('');//날짜태그의 값을 초기화
+$(document)
+.on('click', '.date + .date-delete', function(){
+	$(this).css('display', 'none'); //삭제버튼 안보이게
+	$(this).prev('.date').val(''); //날짜태그의 값을 초기화
+})
+.on('click', '#file-attach .file-delete', function(){
+	$(this).addClass('d-none');  //삭제버튼 안 보이게
 	
+	$('input[type=file]').val('');  //첨부되어 있던 이미지파일정보 없애기
+	var _preview = $('#file-attach .file-preview');
+	if( _preview.length > 0 ) _preview.empty(); //미리보기한 이미지 태그 없애기		
 })
 
 //파일이 이미지파일인지 확인
-function isImage(filename){
-	//abc.png, abc.jpg, abc.txt, abc.hwp
-	var ext = filename.substr(filename.lastIndexOf('.')+1).toLowerCase();
-	var imgs = ["png","jpg","bmp","gif","jpeg","webp"];
-	return imgs.indexOf(ext)==-1 ? false : true;
+function isImage( filename ){
+	// abc.png, abc.jpg, abc.txt, abc.hwp, abc.BMP, abc.JPG
+	var ext = filename.substr(  filename.lastIndexOf('.')+1 ).toLowerCase();
+	var imgs = [ "png", "jpg", "bmp", "gif", "jpeg", "webp" ];
+	return imgs.indexOf( ext )== -1 ? false : true;
 }
 
 
 $(function(){
 	//프로필 이미지 선택처리
 	$('input#file-single').change(function(){
-//		console.log($(this))
-//		console.log(this.files)
+//		console.log( $(this) )
+//		console.log( this.files )
 		
 		var _preview = $('#file-attach .file-preview');
 		var _delete = $('#file-attach .file-delete');
 		
-		var attached =this.files[0];
-		console.log(attached)
-		if(attached){
-			//이미지파일인지 확인
-			if(isImage(attached.name)){
+		var attached = this.files[0];
+		console.log( attached )
+		if( attached ){
+			//이미지파일인지 확인			
+			if( isImage( attached.name ) ){
+				singleFile = attached; //선택한 파일정보를 관리
 				_delete.removeClass('d-none'); //삭제버튼 보이게
-				//미리보기 태그가 있을때만
-				if(_preview.length>0){
-					_preview.html("<img>");
+				// 미리보기 태그가 있을때만
+				if( _preview.length > 0 ){
+					_preview.html( "<img>" );
 					
 					var reader = new FileReader();
-					reader.readAsDataURL(attached);
-					reader.onload=function(e){
-//						_preview.children("img").attr("src",e.target.result);
-						_preview.children("img").attr("src",this.result);
-					}
+					reader.readAsDataURL( attached );
+					reader.onload = function(e){
+//						_preview.children("img").attr("src", e.target.result);	
+						_preview.children("img").attr("src", this.result);	
+					}					
 				}
-				
 			}else{
-				//이전 선택했던 이미지 파일처리
+				singleFile = '';  //이미지가 아닐 파일인 경우는 관리정보를 초기화
+				//이전 선택했던 이미지파일처리
 				_preview.empty();
-				$(this).val('');   			//실제file 태그의 정보 초기화
-				_delete.addClass('d-none');
+				$(this).val('');  		//실제file 태그의 정보 초기화
+				_delete.addClass('d-none'); //삭제버튼 안 보이게
 			}
 			
+		}else{
+			// 파일선택 창에서 취소를 클릭한 경우: 어떤처리도 하지 않는다
+			// 파일정보는 관리된 singleFile 변수에 있다
 		}
 		
 	})
-})
-
-$(function(){
+	
+	
 	$('.date').change(function(){
-		$(this).next('.date-delete').css('display','inline')
+		$(this).next('.date-delete').css('display', 'inline')
 	})
 
 	$('[name=phone]').keyup(function(){
