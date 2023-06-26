@@ -66,6 +66,11 @@ $(document)
 	$('input[type=file]').val('');  //첨부되어 있던 이미지파일정보 없애기
 	var _preview = $('#file-attach .file-preview');
 	if( _preview.length > 0 ) _preview.empty(); //미리보기한 이미지 태그 없애기		
+	
+	var _name = $('#file-attach .file-name'); //파일명 태그
+	if (_name.length>0) _name.empty();//파일명 없애기
+	
+	console.log($('파일정보>','[type=file]').val())
 })
 
 //파일이 이미지파일인지 확인
@@ -95,35 +100,51 @@ $(function(){
 //		console.log( $(this) )
 //		console.log( this.files )
 		
-		var _preview = $('#file-attach .file-preview');
-		var _delete = $('#file-attach .file-delete');
+		var _preview = $('#file-attach .file-preview'); //이미지 미리보기 요소
+		var _delete = $('#file-attach .file-delete');	//파일삭제요소
+		var _name = $('#file-attach .file-name');		//파일명 요소
 		
 		var attached = this.files[0];
 		console.log( attached )
 		if( attached ){
 			//파일 사이즈 제한
 			if(rejectedFile(attached,$(this))) return;
+			//파일명 보여지게
+			if(_name.length>0) _name.text(attached.name);
+			_delete.removeClass('d-none'); //삭제버튼 보이게
 			//이미지파일인지 확인			
 			if( isImage( attached.name ) ){
 				singleFile = attached; //선택한 파일정보를 관리
-				_delete.removeClass('d-none'); //삭제버튼 보이게
+				
 				// 미리보기 태그가 있을때만
 				if( _preview.length > 0 ){
 					_preview.html( "<img>" );
 					
+				}else{
+					
+					//첨부파일이 이미지 인데. 미리보기 요소가 없으면 동적으로 만들어 보이게 처리
+					//삭제버튼 앞에 넣기
+					_delete.before("<span class='file-preview'><img></span>");
+					_preview = ( $('#file-attach .file-preview'))
+				}
 					var reader = new FileReader();
 					reader.readAsDataURL( attached );
 					reader.onload = function(e){
 //						_preview.children("img").attr("src", e.target.result);	
 						_preview.children("img").attr("src", this.result);	
 					}					
-				}
 			}else{
-				singleFile = '';  //이미지가 아닐 파일인 경우는 관리정보를 초기화
+				
 				//이전 선택했던 이미지파일처리
 				_preview.empty();
-				$(this).val('');  		//실제file 태그의 정보 초기화
+				
+				if($(this).hasClass("image-only")){
+					singleFile=''; //이미지가 아닐 파일인 경우는 관리정보를 초기화
+					$(this).val('');  		//실제file 태그의 정보 초기화
 				_delete.addClass('d-none'); //삭제버튼 안 보이게
+				}
+				
+				
 			}
 			
 		}else{
@@ -160,3 +181,18 @@ $(function(){
 	$( ".date" ).datepicker();
 	$( ".date" ).attr('readonly', true)
 }) 
+
+
+//입력항목 입력여부 확인
+function emptyCheck(){
+	var ok = true;
+	$('.check-empty').each(function(){
+		if($(this).val()==""){
+			alert($(this).attr('title')+"입력하세요");
+			$(this).focus();
+			ok=false;
+			return ok;
+		}
+	})
+	return ok;
+}

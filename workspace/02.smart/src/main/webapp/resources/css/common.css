@@ -4,7 +4,7 @@ a {
 	color: initial
 }
 
-a:link {
+a:not(.btn):link, a:hover {
 	text-decoration: none;
 	color: inherit;
 }
@@ -46,6 +46,8 @@ a.text-link:hover {
 	text-decoration: underline;
 }
 
+
+
 .profile {
 	width: 38px;
 	height: 38px;
@@ -65,5 +67,8 @@ input[type=file]{ display:none
 .w-px100 {width:100px;}
 .w-px90 {width:90px;}
 .w-px80 {width:80px;}
+
+
+textarea.form-control{height:400px; resize:none;}
 
 .date + .date-delete { position:relative;right:34px; display:none;}

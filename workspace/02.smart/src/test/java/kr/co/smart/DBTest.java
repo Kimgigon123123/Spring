@@ -69,6 +69,9 @@ public class DBTest {
 		System.out.println("이메일:");
 		vo.setEmail(scan.next());
 		
+		System.out.println("관리자여부(y/n):");
+		vo.setAdmin(scan.next().toUpperCase());
+		
 		//DML(Data Maniplation Language): select,insert,update,delete
 		//Query L: select
 		//DML: insert,update,delete
