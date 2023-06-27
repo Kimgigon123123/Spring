@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 a {
-	color: initial
+	color: inherit
 }
 
 a:not(.btn):link, a:hover {
@@ -70,5 +70,7 @@ input[type=file]{ display:none
 
 
 textarea.form-control{height:400px; resize:none;}
+
+#modal-image .modal-body img{width:100%}
 
 .date + .date-delete { position:relative;right:34px; display:none;}

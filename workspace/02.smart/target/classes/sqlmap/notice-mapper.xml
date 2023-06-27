@@ -2,7 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="notice">
 
+<!--  선택한 공지글 조회수 증가처리 -->
+<update id = "read">
+update notice set readcnt = readcnt+1
+where id= #{id}
+</update>
 
+<!--  공지글정보 조회 -->
+<select id="info" resultType="smart.notice.NoticeVO">
+select n.*, name 
+from notice n inner join member on writer = userid 
+where id = #{id}
+
+</select>
 
 <!-- 신규 공지글 저장 -->
 <insert id = "insert">

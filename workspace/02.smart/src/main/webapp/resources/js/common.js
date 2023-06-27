@@ -2,7 +2,19 @@
  * 공통 함수 선언
  */
 
+//파일첨부 정보 file태그에 담기
+var singleFile = ''; //파일선택시 선택한 첨부파일정보를 담아둘 변수
+function singleFileUpload(){
+	if(singleFile != ""){
+		var transfer  = new DataTransfer();
+		transfer.items.add(singleFile);
+		//화면 태그 속성: attr : 기본에 해당, 나중에 속성추가 지정: property
+		$('input[type=file]').prop('files',transfer.files);
+// 		console.log($('input[type=file]').val())
+	}
+}
 
+//전화번호 형태 만들기
 function toPhone( tag ){
 	// 02-1234-5678(10자리)  010-1234-5678(11자리)
 	//숫자만 입력되게 처리 01012345678 - 숫자만 뽑아내기
@@ -72,6 +84,14 @@ $(document)
 	
 	console.log($('파일정보>','[type=file]').val())
 })
+.on('click','.file-preview img',function(){
+	//미리보기 이미지 클릭시 크게 보이게
+	if($('#modal-image').length==1){
+		$('.modal-body').html($(this).clone());
+		new bootstrap.Modal($('#modal-image')).show()
+	}
+})
+
 
 //파일이 이미지파일인지 확인
 function isImage( filename ){
