@@ -45,13 +45,16 @@
 </table>
 <input type="hidden" name="id" value="${vo.id}">
 <input type="hidden" name="filename">
+<input type="hidden" name="CurPage" value="${page.curPage }">
+<input type="hidden" name="search" value="${page.search }">
+<input type="hidden" name="keyword" value="${page.keyword }">
 
 </form>
 
 
 <div class="btn-toolbar gap-2 my-3 justify-content-center">
 			<button class="btn btn-primary px-4" id="btn-save">저장</button>
-			<button class="btn btn-outline-primary px-4" onclick="location='list'">취소</button>
+			<button class="btn btn-outline-primary px-4" onclick="history.go(-1)">취소</button>
 		
 		</div>
 

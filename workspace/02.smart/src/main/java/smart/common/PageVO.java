@@ -8,6 +8,7 @@ import smart.notice.NoticeVO;
 
 @Getter @Setter
 public class PageVO {
+	private String search,keyword=""; /*검색유형, 검색어*/
 	private int totalList; //DB에서 조회해온 총 글 건수
 	private int pageList = 10; // 페이지당 보여질 목록 수
 	private int blockPage = 10; //블럭당 보여질 페이지 수
@@ -44,7 +45,7 @@ public class PageVO {
 		
 		//블록번호 : 페이지번호 / 블록당 보여질 페이지 수
 		curBlock = curPage / blockPage;
-		if(curPage % blockPage > 0 ) ++totalBlock;
+		if(curPage % blockPage > 0 ) ++curBlock;
 		
 //		 각 블럭의 끝 페이지번호 : 블록번호 * 블록당 보여질 페이지수
 //		 각 블럭의 시작 페이지번호 : 끝 페이지번호 - (블럭당 보여질 페이지수-1)

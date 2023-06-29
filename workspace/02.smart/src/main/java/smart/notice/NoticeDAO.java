@@ -55,7 +55,7 @@ public class NoticeDAO implements NoticeService{
 
 	@Override
 	public PageVO notice_list(PageVO page) {
-		page.setTotalList(sql.selectOne("notice.totalList"));
+		page.setTotalList(sql.selectOne("notice.totalList",page));
 		page.setList(sql.selectList("notice.list",page));
 		
 		return page;
