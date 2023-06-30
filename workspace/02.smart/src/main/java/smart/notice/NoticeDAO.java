@@ -60,6 +60,11 @@ public class NoticeDAO implements NoticeService{
 		
 		return page;
 	}//해당 페이지의 공지목록 조회
+
+	@Override
+	public int notice_reply_regist(NoticeVO vo) {
+		return sql.insert("notice.replyRegister",vo);
+	}
 	
 	
 	

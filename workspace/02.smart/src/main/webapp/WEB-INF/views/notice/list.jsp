@@ -66,16 +66,21 @@
 <tr><td colspan="4">공지글이 없습니다</td></tr>
 </c:if>
 
-<c:forEach items="${page.list }" var="vo">
-<tr><td>${vo.no }</td>
-<td class="text-start"><a class="text-link" href="info?id=${vo.id }&curPage=${page.curPage}&search=${page.search}&keyword=${page.keyword}">${vo.title}</a></td>
-<td>${vo.name }</td>
-<td>${vo.writedate }</td>
-<td><c:if test="${not empty vo.filename }"><i class="fa-solid fa-paperclip"></i></c:if></td>
+<c:forEach items="${page.list}" var="vo">
+<tr><td>${vo.no}</td>
+	<td class="text-start">
+		<span style="margin-left:${15*vo.indent}px"></span>
+		${vo.indent gt 0 ? '<i class="fa-regular fa-comment-dots"></i>' : ''}
+		<a class="text-link" 
+			href="info?id=${vo.id }&curPage=${page.curPage}&search=${page.search}&keyword=${page.keyword}">${vo.title }</a>
+	</td>
+	<td>${vo.name }</td>
+	<td>${vo.writedate }</td>
+	<td><c:if test="${not empty vo.filename}"><i class="fa-solid fa-paperclip"></i></c:if></td>
 </tr>
 </c:forEach>
-
 </table>
+
 <jsp:include page="/WEB-INF/views/include/page.jsp"/>
 </body>
 </html>
