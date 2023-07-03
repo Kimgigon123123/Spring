@@ -28,6 +28,7 @@ public class NoticeController {
 	@Autowired private NoticeDAO service;
 	
 	
+	
 	@Autowired private CommonUtility common;
 	//공지글 답글쓰기 저장처리 요청
 	@RequestMapping("/reply_register")

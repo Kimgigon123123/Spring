@@ -66,6 +66,8 @@ public class NoticeDAO implements NoticeService{
 		return sql.insert("notice.replyRegister",vo);
 	}
 	
+
+	
 	
 	
 	

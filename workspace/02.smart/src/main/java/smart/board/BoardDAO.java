@@ -14,14 +14,20 @@ public class BoardDAO implements BoardService {
 	
 	@Override
 	public int board_register(BoardVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		//방명록 정보 저장 + 첨부파일정보 저장
+		int insert = sql.insert("board.register",vo);
+		if(insert == 1 && vo.getFileList() != null) {
+			sql.insert("board.fileRegister",vo); 
+		}
+		return insert;
 	}
 
 	@Override
 	public PageVO baord_list(PageVO page) {
-		// TODO Auto-generated method stub
-		return null;
+		//건수조회
+		page.setTotalList(sql.selectOne("board.totalList",page));
+		page.setList(sql.selectList("board.list",page));
+		return page;
 	}
 
 	@Override
