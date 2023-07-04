@@ -72,10 +72,10 @@ call declare begin
 	update notice set step = step + 1 
     where root = #{root} and step > #{step};
      
-	insert into notice(title, content, writer, filename, filepath, root, step, indent)
+	insert into notice(title, content, writer, filename, filepath, root, step, indent,rid)
 	values ( #{title}, #{content}, #{writer}
 		, #{filename, jdbcType=VARCHAR}, #{filepath, jdbcType=VARCHAR}
-		, #{root}, #{step}+1, #{indent}+1
+		, #{root}, #{step}+1, #{indent}+1,#{rid}
 	);	
 end
 }

@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
 import smart.board.BoardDAO;
 import smart.board.BoardVO;
 import smart.common.CommonUtility;
@@ -24,6 +26,16 @@ public class BoardController {
 	@Autowired private BCryptPasswordEncoder pw;
 	
 	@Autowired private CommonUtility common;
+	
+	//선택한 방명록 정보 화면 요청
+	@RequestMapping("/info")
+	public String info(Model model,int id,PageVO page) {
+		//선택한 방명록 글 정보를 DB에서 조회해와 화면에 출력할 수 있도록 Model에 담기
+		model.addAttribute("vo",service.board_info(id));
+		model.addAttribute("crlf","\r\n");
+		model.addAttribute("lf","\n");
+		return "board/info";
+	}
 	
 	//방명록 신규저장처리 요청
 	@RequestMapping("/register")
