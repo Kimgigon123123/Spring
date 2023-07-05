@@ -1,5 +1,7 @@
 package smart.board;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,8 +34,11 @@ public class BoardDAO implements BoardService {
 
 	@Override
 	public BoardVO board_info(int id) {
-		// TODO Auto-generated method stub
-		return sql.selectOne("board.info",id);
+		//방명록 정보 + 첨부파일 정보
+		BoardVO vo = sql.selectOne("board.info",id);
+		List<FileVO> files  = sql.selectList("board.fileList",id);
+		vo.setFileList(files);
+		return vo;
 	}
 
 	@Override
@@ -44,14 +49,19 @@ public class BoardDAO implements BoardService {
 
 	@Override
 	public int board_read(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sql.update("board.read",id);
 	}
 
 	@Override
 	public int board_delete(int id) {
 		// TODO Auto-generated method stub
-		return 0;
+		return sql.delete("board.delete",id);
+	}
+
+	@Override
+	public FileVO board_file_info(int id) {
+		// TODO Auto-generated method stub
+		return sql.selectOne("board.fileInfo",id );
 	}
 
 }

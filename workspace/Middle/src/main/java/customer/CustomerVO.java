@@ -3,13 +3,7 @@ package customer;
 public class CustomerVO {
 
 	private int id;
-	private String name, gender, email, phone;
-	
-	
-
-	
-	
-	
+	private String  name, gender, email, phone;
 	public int getId() {
 		return id;
 	}
@@ -40,6 +34,8 @@ public class CustomerVO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
+	
 	
 	
 }

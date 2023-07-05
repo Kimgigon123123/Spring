@@ -1,0 +1,20 @@
+package com.hanul.middle;
+
+public class TestVO {
+
+	private int num;
+
+	public TestVO(int num) {
+		super();
+		this.num = num;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+	
+}

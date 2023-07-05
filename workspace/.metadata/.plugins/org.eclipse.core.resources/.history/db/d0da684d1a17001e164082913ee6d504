@@ -1,0 +1,11 @@
+package smart.board;
+
+public interface BoardService {
+	int board_register(BoardVO vo);//신규 방명록 글저장
+	// 방명록 목록 조회(페이지처리)
+	// 방명록 글 안내 조회
+	// 방명록 변경저장
+	// 조회수 증가 처리
+	// 방명록 글 삭제
+	
+}

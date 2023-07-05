@@ -1,0 +1,11 @@
+package dbconn;
+
+public class Snippet {
+	oracle.driver = net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+	oracle.url=jdbc:log4jdbc:oracle:thin:@192.168.0.36:1521:xe
+	hanul.username=hanul
+	hanul.password=0000
+	hr.username=hr
+	hr.password=0000
+}
+

@@ -1,0 +1,38 @@
+package com.hanul.middle;
+
+public class CustomerVO {
+
+	int ID;
+	String NAME, GENDER, EMAIL, PHONE;
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		ID = iD;
+	}
+	public String getNAME() {
+		return NAME;
+	}
+	public void setNAME(String nAME) {
+		NAME = nAME;
+	}
+	public String getGENDER() {
+		return GENDER;
+	}
+	public void setGENDER(String gENDER) {
+		GENDER = gENDER;
+	}
+	public String getEMAIL() {
+		return EMAIL;
+	}
+	public void setEMAIL(String eMAIL) {
+		EMAIL = eMAIL;
+	}
+	public String getPHONE() {
+		return PHONE;
+	}
+	public void setPHONE(String pHONE) {
+		PHONE = pHONE;
+	}
+	
+}

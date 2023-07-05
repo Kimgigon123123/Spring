@@ -1,0 +1,21 @@
+package com.hanul.middle;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class CustomerController {
+//one.cu , list.cu
+	
+	@RequestMapping("/one.cu")
+	public String one() {
+		return "one";
+	}
+	
+	@RequestMapping("list.cu")
+	public String list() {
+		return "list";
+	}
+	
+	
+}

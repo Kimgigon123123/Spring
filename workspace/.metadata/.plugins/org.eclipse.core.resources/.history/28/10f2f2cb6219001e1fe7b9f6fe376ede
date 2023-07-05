@@ -1,0 +1,44 @@
+package kr.co.smart;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import smart.board.BoardDAO;
+import smart.member.MemberDAO;
+import smart.member.MemberVO;
+
+@Controller @RequestMapping("/board")
+public class BoardController {
+	@Autowired private BoardDAO service;
+	@Autowired private MemberDAO member;
+	@Autowired private BCryptPasswordEncoder pw;
+
+	//방명록  신규입력 화면 요청
+	@RequestMapping("/new")
+	public String board() {
+		return "board/new";
+	}
+	
+	//방명록 목록 화면 요청
+	@RequestMapping("/list")
+	public String list(HttpSession session) {
+		// 임시 로그인처리(테스트후 삭제/주석)---------
+				String userid = "park2023";
+				String userpw = "Park20234";
+				MemberVO login = member.member_info(userid);
+				if( pw.matches( userpw, login.getUserpw()) ) {
+					session.setAttribute("loginInfo", login);
+				}
+				//-------------------------------------
+						
+				
+				session.setAttribute("category", "bo");
+				return "board/list";
+	}
+	
+}

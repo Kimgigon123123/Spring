@@ -2,7 +2,7 @@
 <aop-reference-model>
 <aop-project name="02.smart"/>
 <aop-project name="01.web"/>
+<aop-project name="Middle"/>
 <aop-project name="99.test"/>
-<aop-project name="999.temp"/>
-<aop-project name="999.test"/>
+<aop-project name="Middle_Practice"/>
 </aop-reference-model>
