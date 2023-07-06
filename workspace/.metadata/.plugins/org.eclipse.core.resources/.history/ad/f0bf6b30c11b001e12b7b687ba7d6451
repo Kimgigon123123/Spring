@@ -1,0 +1,30 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" pageEncoding="utf-8" contentType="text/html; charset=utf-8" %>
+<html>
+<head>
+	<title>Home</title>
+</head>
+<body>
+<h3>스마트 웹&amp;앱 과정
+<img style="width: 100%" src="img/hanul.png">
+상품명: <input type="text" id="name">	  
+가격: <input type="text" id="price">	  
+<div id="ajax-result"></div>	  
+	  
+</h3>
+
+
+<script>
+$.ajax({
+	url:'test1',
+	type:'post',
+	data:{name:'사이다',price:2000},
+}).done(function(response){
+	console.log(response)
+	$('#ajax-result').html(response)
+})
+
+</script>
+
+</body>
+</html>

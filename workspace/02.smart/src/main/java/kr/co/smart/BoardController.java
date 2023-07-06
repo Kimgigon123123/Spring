@@ -44,6 +44,32 @@ public class BoardController {
 	//삭제처리 후 화면 list
 	//변경저장처리 후 화면 info
 	
+	//선택한 방명록 정보 수정처리 요청
+	@RequestMapping("/update")
+	public String update(BoardVO vo, PageVO page,Model model,MultipartFile file[]
+							,HttpServletRequest request,String removed) {
+		//첨부된 파일들 담기
+		vo.setFileList(common.attachdFiles("board", file, null));
+		
+		
+		//화면에서 변경입력 정보로 DB에 저장
+		if(service.board_update(vo)==1) {
+			//삭제대상 파일이 있는 경우는 삭제처리:DB+물리적파일
+			if(!removed.isEmpty()) { //13,14
+				//DB에서 삭제하기 전에 삭제할 파일정보 조회해두기
+				List<FileVO> files = service.board_file_removed(removed);
+				//DB삭제
+				
+				//물리적파일 삭제
+			}
+		}
+		
+		model.addAttribute("url","board/info");
+		model.addAttribute("page",page);
+		model.addAttribute("id",vo.getId());
+		return "board/redirect";
+	}
+	
 	//선택한 방명록 정보 수정화면 요청
 	@RequestMapping("modify")
 	public String modify(Model model,int id,PageVO page) {

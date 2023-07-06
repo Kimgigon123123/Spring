@@ -6,10 +6,52 @@
 </head>
 <body>
 <h3>스마트 웹&amp;앱 과정
-<img style="width: 100%" src="img/hanul.png">	  
-	  
+<img style="width: 100%" src="img/hanul.png">
+상품명: <input type="text" id="name">	  
+가격: <input type="text" id="price" value="0">
+<button onclick="test1()">보내기(jsp)</button> 
+<button onclick="xml()">보내기(xml)</button>
+<div id="xml-result"></div> 
+<div id="ajax-result"></div>	  
 	  
 </h3>
+
+
+<script>
+function xml(){
+	var tag =''
+	$.ajax({
+		url:'xml',
+	}).done(function(response){
+		console.log(response)
+		console.log($(response).find("product"))
+		$(response).find("product").each(function(){
+			var name = $(this).find("name").text()
+			var price = $(this).find("price").text()
+			tag+= `<div><span>\${name}</span><span>\${price}</span></div>`;
+			//var tag = `<div><span>\${name}</span><span>\${price}</span></div>`;
+			
+		})
+		$('#xml-result').html(tag)
+	})
+	
+	
+}
+
+
+function test1(){
+	$.ajax({
+		url:'test1',
+		type:'post',
+		data:{name:$("#name").val(),price:$("#price").val()},
+	}).done(function(response){
+		console.log(response)
+		$('#ajax-result').html(response)
+	})
+
+}
+
+</script>
 
 </body>
 </html>

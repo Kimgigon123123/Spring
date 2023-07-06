@@ -32,8 +32,8 @@ public class CustomerController {
 	
 	
 	@RequestMapping(value="/list.cu",produces="text/html;charset=utf-8")
-	public String list() {
-		System.out.println("여기까지 누군가가 왔다감");
+	public String list(String param) {
+		System.out.println("여기까지 누군가가 왔다감"+param);
 		List<CustomerVO> list = sql.selectList("cu.list");
 //		for(int i =0;i<list.size();i++) {
 //			System.out.println(list.get(i).getName());

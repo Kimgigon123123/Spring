@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
 
+<!-- 방명록 글변경저장처리 -->
+<update id="update">
+update board set title=#{title},content = #{content}
+where id = #{id}
+</update>
+
 <!-- 방명록 글 조회수 증가처리 -->
 <update id="read">
 update board set readcnt = readcnt+1 where id = #{id}

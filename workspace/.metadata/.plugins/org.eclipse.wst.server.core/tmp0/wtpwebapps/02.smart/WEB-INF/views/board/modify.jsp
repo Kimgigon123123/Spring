@@ -10,7 +10,7 @@
 </head>
 <body>
 <h3 class="my-4">방명록글쓰기</h3>
-<form method="post" enctype="multipart/form-data" action="register">
+<form method="post" enctype="multipart/form-data" action="update">
 <table class="tb-row">
 <colgroup><col width="180px"><col></colgroup>
 <tr><th>제목</th>
@@ -54,6 +54,14 @@
 
 </table>
 <input type="hidden" name="writer" value="${loginInfo.userid }">
+<input type="hidden" name="curPage" value="${page.curPage }">
+<input type="hidden" name="search" value="${page.search }">
+<input type="hidden" name="keyword" value="${page.keyword }">
+<input type="hidden" name="viewType" value="${page.viewType }">
+<input type="hidden" name="pageList" value="${page.pageList }">
+<input type="hidden" name="id" value="${vo.id }">
+<!-- 삭제한 첨부파일 id 목록 -->
+<input type="hidden" name="removed">
 
 </form>
 
@@ -73,9 +81,9 @@
 var fileList = new FileList();
 
 <c:forEach items="${vo.fileList }" var="f">
-fileList.setFile(urlToFile("${f.filepath}","${f.filename}"))
+fileList.setFile( urlToFile( "${f.filepath}", "${f.filename}" ), ${f.id} )
 </c:forEach>
-console.log(fileList)
+console.log( fileList )
 
 // 물리적인 파일정보를 읽어와 파일정보를 담도록 한다
 
@@ -89,12 +97,16 @@ function urlToFile(url,filename){
 		async:false,
 	}).done(function(response){
 		var blob = new Blob([response]);
-		var file = new File([blob],filename)
+		file = new File([blob],filename)
 	})
 	//함수2 호출 
 	return file;
 	
 }
+
+$('#btn-cancel').click(function(){
+	$('form').attr('action','info').submit()
+})
 
 
 
@@ -122,6 +134,8 @@ $('.file-drag')
 
 $('#btn-save').click(function(){
 	if( emptyCheck() ){
+		multipleFileUpload();
+		$('[name=removed]').val(fileList.info.removeId)
 		$('form').submit()
 	}
 })
