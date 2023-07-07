@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
+import smart.board.BoardCommentVO;
 import smart.board.BoardDAO;
 import smart.board.BoardVO;
 import smart.board.FileVO;
@@ -44,12 +45,18 @@ public class BoardController {
 	//삭제처리 후 화면 list
 	//변경저장처리 후 화면 info
 	
+	//댓글 등록처리
+	@RequestMapping("/comment/register")
+	public void comment_register(BoardCommentVO vo) {
+		
+	}
+	
 	//선택한 방명록 정보 수정처리 요청
 	@RequestMapping("/update")
 	public String update(BoardVO vo, PageVO page,Model model,MultipartFile file[]
 							,HttpServletRequest request,String removed) {
 		//첨부된 파일들 담기
-		vo.setFileList(common.attachdFiles("board", file, null));
+		vo.setFileList(common.attachdFiles("board", file, request));
 		
 		
 		//화면에서 변경입력 정보로 DB에 저장
@@ -59,8 +66,14 @@ public class BoardController {
 				//DB에서 삭제하기 전에 삭제할 파일정보 조회해두기
 				List<FileVO> files = service.board_file_removed(removed);
 				//DB삭제
+				for(FileVO f:files) {
+					if(service.board_file_delete(f.getId())==1) {
+						//물리적파일 삭제
+						common.deletedFile(f.getFilepath(), request);
+					}
+				}
 				
-				//물리적파일 삭제
+				
 			}
 		}
 		

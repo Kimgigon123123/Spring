@@ -1,0 +1,9 @@
+package smart.board;
+
+public class BoardCommentVO {
+
+	private int id,board_id;
+	private String content,writer,name,writedate;
+	
+	
+}

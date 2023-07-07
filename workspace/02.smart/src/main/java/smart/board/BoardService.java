@@ -14,4 +14,6 @@ public interface BoardService {
 
 	FileVO board_file_info(int id);	//선택한 파일정보조회
 	List<FileVO> board_file_removed(String removed);//삭제할 파일들 정보 조회
+	int board_file_delete(int id); //선택 파일정보 삭제
+	
 }

@@ -29,6 +29,8 @@ table th {
 	background-color: #eee !important;
 }
 
+textarea.form-control{height:400px;resize:none;}
+
 table.tb-list tr {
 	height: 48px
 }

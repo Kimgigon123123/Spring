@@ -43,8 +43,12 @@ public class BoardDAO implements BoardService {
 
 	@Override
 	public int board_update(BoardVO vo) {
-		// TODO Auto-generated method stub
-		return sql.update("board.update",vo);
+		//방명록 정보 변경저장 + 추가한 첨부파일정보 저장
+		int update = sql.update("board.update",vo);
+		if(update == 1 && vo.getFileList() != null) {
+			sql.insert("board.fileRegister",vo);
+		}
+		return update;
 	}
 
 	@Override
@@ -67,7 +71,13 @@ public class BoardDAO implements BoardService {
 	@Override
 	public List<FileVO> board_file_removed(String removed) {
 		// TODO Auto-generated method stub
-		return null;
+		return sql.selectList("board.fileRemoved",removed);
+	}
+
+	@Override
+	public int board_file_delete(int id) {
+		// TODO Auto-generated method stub
+		return sql.delete("board.fileDelete",id);
 	}
 
 }
