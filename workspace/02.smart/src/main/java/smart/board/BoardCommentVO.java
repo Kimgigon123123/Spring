@@ -7,7 +7,7 @@ import lombok.Setter;
 public class BoardCommentVO {
 
 	private int id,board_id;
-	private String content,writer,name,writedate;
+	private String content,writer,name,writerdate,profile;
 	
 	
 }

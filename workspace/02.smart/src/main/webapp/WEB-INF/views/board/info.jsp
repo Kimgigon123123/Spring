@@ -80,6 +80,12 @@
 	</div>
 </div>
 
+<!-- 댓글목록출력부분 -->
+<div class="row justify-content-center mt-4" id="comment-list">
+	
+	
+</div>
+
 <form method="post">
 <input type="hidden" name="file">
 <input type="hidden" name="curPage" value="${page.curPage }">
@@ -94,6 +100,20 @@
 <jsp:include page="/WEB-INF/views/include/modal_alert.jsp"/>
 
 <script>
+commentList();
+
+//댓글목록조회해와 출력
+function commentList(){
+	
+	$.ajax({
+		url:'<c:url value="/board/comment/list/${vo.id}"/>'
+	}).done(function(response){
+		console.log(response)
+		$('#comment-list').html(response)
+	})
+	
+}
+
 
 //댓글등록처리
 $('.btn-register').click(function(){
@@ -102,11 +122,18 @@ $('.btn-register').click(function(){
 	if(_textarea.val().length==0) return;
 	
 	$.ajax({
-		url:'<c:url value="/board/comment/register"/>'
-		data:{ board_id: ${vo.id},content:_textarea.val(),wrter:'${loginInfo.userid}' },
+		url:'<c:url value="/board/comment/register"/>',
+		data:{ board_id: ${vo.id},content:_textarea.val(),writer:'${loginInfo.userid}' },
 		
 	}).done(function(response){
 		console.log(response)
+		if(response){
+			alert("댓글이 등록되었습니다 ^^");
+			initRegisterContent();
+		}else{
+		
+			alert("댓글 등록 실패ㅠㅠ");
+		}
 	});
 	
 })
@@ -155,7 +182,7 @@ $(document).on('focusout' , '#comment-register textarea',function(){
 		initRegisterContent();
 	}
 	
-}).on('keyup','#comment-register textarea',function(){
+}).on('keyup','.comment textarea',function(){
 	var comment = $(this).val();
 	if( comment.length>200){
 		alert("최대 200자까지 입력할 수 있습니다");
