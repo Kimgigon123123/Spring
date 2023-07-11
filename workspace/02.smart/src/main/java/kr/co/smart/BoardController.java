@@ -1,5 +1,6 @@
 package kr.co.smart;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,12 +36,30 @@ public class BoardController {
 	
 	@Autowired private CommonUtility common;
 	
+	//댓글정보삭제처리
+		@ResponseBody @RequestMapping("/comment/delete")
+		public boolean comment_delete(int id) {
+			//해당 댓글정보를 DB에서 삭제
+			return service.board_comment_delete(id)==1 ? true : false;
+		}
+	
 	//댓글정보수정처리
 	//json으로 보내진 정보를 담기 위한 annotation: @RequestBody
+//	@ResponseBody @RequestMapping(value = "/comment/update",produces="application/text;charset=utf-8")
 	@ResponseBody @RequestMapping("/comment/update")
-	public String comment_update(@RequestBody BoardCommentVO vo) {
+	public HashMap<String,String> comment_update(@RequestBody BoardCommentVO vo) {
 		//화면에서 변경입력한 정보를 DB에 변경 저장처리
-		return service.board_comment_update(vo) == 1 ? "성공" : "실패";
+//		return service.board_comment_update(vo) == 1 ? "성공" : "실패";
+		//응답화면에서 댓글목록 전체를 다시 조회해오지 않고
+		// 변경 저장된 댓글만 반영되게 처리
+		HashMap<String,String> map = new HashMap<String,String>();
+		if(service.board_comment_update(vo)==1) {
+			map.put("message", "성공");
+			map.put("content", vo.getContent());
+		}else {
+			map.put("message", "실패");
+		}
+		return map;
 	}
 	
 	

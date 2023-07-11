@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+<select id="test" resultType="member.MemberVO">
+
+<!-- ${id} id=dev 컬럼으로 인식함 
+	#{id} id='id' 값을 인식함
+-->
+
+select * from AndMember where id= #{id} and password = #{password}
+</select>
+
+</mapper>
