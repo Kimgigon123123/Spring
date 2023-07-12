@@ -34,6 +34,7 @@ public class MemberController {
 //		params.put("password", pw);
 //		MemberVO vo = dao.login(params);
 		
+		//여기까지 누군가가 왔따감
 		
 		Gson gson = new Gson();
 		

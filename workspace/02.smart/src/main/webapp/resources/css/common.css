@@ -4,6 +4,9 @@ a {
 	color: inherit
 }
 
+a.text-link:hover{color:#0d6efd;text-decoration:underline;}
+a.text-link{text-decoration: none;cursor:pointer;}
+
 a:not(.btn):link, a:hover {
 	text-decoration: none;
 	color: inherit;

@@ -6,4 +6,20 @@ select * from customer
 
 </select>
 
+<delete id="delete">
+delete from customer where id = #{id}
+</delete>
+
+<insert id="insert">
+
+insert into customer (name,email,phone)
+values (#{name},#{email},#{phone})
+</insert>
+
+<update id="update">
+
+UPDATE CUSTOMER SET name = #{name},email=#{email},phone=#{phone} WHERE id = #{id}
+
+</update>
+
 </mapper>

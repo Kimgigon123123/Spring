@@ -1,5 +1,6 @@
 package com.hanul.middle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -42,6 +43,32 @@ public class CustomerController {
 		Gson gson = new Gson();
 		
 		return gson.toJson(list);
+	}
+	
+	@RequestMapping(value="/delete.cu",produces="text/html;charset=utf-8")
+	public String delete(int id) {
+		
+		int result = sql.delete("cu.delete",id);
+		System.out.println("성공여부"+result);
+		return "aa";
+	}
+	
+	@RequestMapping(value="/insert.cu",produces="text/html;charset=utf-8")
+	public String insert(CustomerVO vo) {
+		
+		int result = sql.insert("cu.insert",vo);
+		
+		return "aa";
+	}
+	
+	
+	@RequestMapping(value="/update.cu",produces="text/html;charset=utf-8")
+	public String update(CustomerVO vo) {
+		
+		int result = sql.update("cu.update",vo);
+		System.out.println("성공여부"+result);
+		
+		return "aa";
 	}
 	
 	
