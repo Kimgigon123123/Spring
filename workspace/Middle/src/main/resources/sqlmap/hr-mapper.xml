@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hr">
+
+<select id="list" resultType="hr.HrVO">
+
+select employee_id,first_name||' '||last_name as name,
+
+CASE    WHEN (mod(employee_id,2)=0) THEN concat(email,'@gmail.com')
+         WHEN (mod(employee_id,2)!=0) THEN concat(email,'@naver.com')        
+         ELSE '0'
+         end as email,
+
+REPLACE(phone_number,'.','-') as phone_number,to_char(hire_date,'yyyy-mm-dd') as hire_date,
+j.job_title,d.department_name ,
+
+
+case when e.COMMISSION_PCT is null then to_char((e.salary * 1289)+nvl((e.COMMISSION_PCT * e.salary * 1289),0),'999,999,999')||'원'
+    when e.Commission_pct is not null then to_char((e.salary * 1289)+nvl((e.COMMISSION_PCT * e.salary * 1289),0),'999,999,999')||'원'||
+'('|| +to_char(nvl((e.COMMISSION_PCT * e.salary * 1289),0),'999,999,999') ||')'
+ELSE '0'
+end 
+as salary
+
+
+
+
+
+from employees e , departments d , jobs j
+where e.department_id = d.department_id
+and e.job_id = j.job_id
+order by employee_id asc
+
+
+</select>
+
+
+<select id="search" resultType="hr.HrVO">
+select employee_id,first_name||' '||last_name as name,
+
+CASE    WHEN (mod(employee_id,2)=0) THEN concat(email,'@gmail.com')
+         WHEN (mod(employee_id,2)!=0) THEN concat(email,'@naver.com')        
+         ELSE '0'
+         end as email,
+
+REPLACE(phone_number,'.','-') as phone_number,to_char(hire_date,'yyyy-mm-dd') as hire_date,
+j.job_title,d.department_name ,
+
+
+case when e.COMMISSION_PCT is null then to_char((e.salary * 1289)+nvl((e.COMMISSION_PCT * e.salary * 1289),0),'999,999,999')||'원'
+    when e.Commission_pct is not null then to_char((e.salary * 1289)+nvl((e.COMMISSION_PCT * e.salary * 1289),0),'999,999,999')||'원'||
+'('|| +to_char(nvl((e.COMMISSION_PCT * e.salary * 1289),0),'999,999,999') ||')'
+ELSE '0'
+end 
+as salary
+
+
+
+
+
+from employees e , departments d , jobs j
+where e.department_id = d.department_id
+and e.job_id = j.job_id and d.department_name like  '%' || #{department_name} || '%'
+order by employee_id asc
+</select>
+
+
+
+
+
+</mapper>

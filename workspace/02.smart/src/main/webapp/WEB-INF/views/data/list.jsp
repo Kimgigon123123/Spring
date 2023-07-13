@@ -24,16 +24,26 @@
 
 </ul>
 
-<div class="row">
-  <div class="col-auto">
-  <select class="form-select" id="pageList">
-  	<c:forEach var="i" begin="1" end="5">
-  	<option value="${10*i }">${10*i }개씩</option>
-  	</c:forEach>
-  	
-  </select>
-  </div>
-  </div>
+<div class="row mb-3 justify-content-between">
+	<div class="col-auto d-flex gap-2 animal-top"> <!-- 유기동물 조회시만 사용될 부분 -->
+	</div>
+	
+	<div class="col-auto pharmacy-top"> <!-- 약국조회시만 사용될 부분 -->
+		<div class="input-group">
+			<label class="col-form-label me-3">약국명</label>
+			<input type="text" id="name" class="form-control">
+			<button class="btn btn-primary px-3" id="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+		</div>
+	</div>
+		
+	<div class="col-auto">				<!-- 약국/유기동물 조회시 모두 사용될 부분 -->
+		<select class="form-select" id="pageList">
+			<c:forEach var="i" begin="1" end="5">
+			<option value="${10*i}">${10*i}개씩</option>
+			</c:forEach>
+		</select>
+	</div>
+</div>
 
  <div id="data-list"></div>
  
@@ -41,7 +51,7 @@
  <jsp:include page="/WEB-INF/views/include/loading.jsp"/>
   <jsp:include page="/WEB-INF/views/include/modal_image.jsp"/>
   
-  
+  <script src="<c:url value='/js/animal.js'/>"></script>
    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=3n13cy7hca"></script>
 
 <script type="text/javascript" 
@@ -50,7 +60,8 @@ src="//dapi.kakao.com/v2/maps/sdk.js?appkey=54feae971a7084e00d3a206c3f22f2ec"></
 //한페이지에 보여질 목록수 변경시
 $('#pageList').change(function(){
 	page.pageList = $(this).val();
-	pharmacy_list(1);
+	if($('table.pharmacy').length>0)pharmacy_list(1);
+	else if($('table.animal').length>0)animal_list(1);
 })
 
 
@@ -92,7 +103,12 @@ $('ul.nav-pills li').on({
 })
 
 //약국목록 조회
-function pharmacy_list(pageNo){
+function pharmacy_list( pageNo ){
+	$('.pharmacy-top').removeClass('d-none');
+	$('#data-list').empty();
+	$('.pagination').closest('nav').remove(); //페이지목록이 이미 있으면 삭제
+	$('.loading').show();
+	
 	var table = 
 		`
 		<table class="tb-list pharmacy">
@@ -141,7 +157,9 @@ function pharmacy_list(pageNo){
 }
 
 $(document).on('click','.pagination a',function(){//페이지번호 클릭시
-	pharmacy_list($(this).data('page') );
+	if($(this).hasClass('active')) return;
+	if($('table.pharmacy').length>0) pharmacy_list($(this).data('page') );
+	else if($('table.animal').length>0) animal_list($(this).data('page') );
 })
 .on('click','.map',function(){//약국명 클릭시 지도에 약국위치 표시하기
 	if($(this).data('x')=='undefined'||$(this).data('y')=='undefined'){
@@ -304,24 +322,7 @@ function makePage( totalList, curPage ){
 	
 }
 
-//유기동물 목록 조회
-function animal_list(pageNo){
-	$('#data-list').empty();
-	$('.pagination').closest('nav').remove(); 
-	$('.loading').show();
-	
-	$.ajax({
-		url:'<c:url value="/data/animal/list"/>',
-		data:{pageNo:pageNo, rows:page.pageList},
-		async: false,
-	}).done(function(response){
-		console.log(response)
-	})
-	
-	setTimeout(function(){ $('.loading').hide()},500);
-	
-	
-}
+
 
 </script>
 
