@@ -27,6 +27,48 @@
 </ul>
 
 <div id='tab-content' class="m-md-2 m-lg-3" style='height:520px'>
+	<div class= "tab text-center mt-4">
+			<div class="form-check form-check-inline">
+		 
+		  <label >
+		     <input class="form-check-input" type="radio"name="chart" value="bar" checked>막대그래프
+		  </label>
+		</div>
+		<div class="form-check form-check-inline">
+		  
+		  <label >
+		    <input class="form-check-input" type="radio" name="chart" value="donut">도넛그래프
+		  </label>
+		</div>
+	</div>
+	
+	<div class= "tab text-center mt-4">
+			<div class="form-check form-check-inline">
+		 
+		  <label >
+		     <input class="form-check-input" type="checkbox" id="top3">TOP3부서
+		  </label>
+		
+		  
+		  
+		</div>
+		
+			<div class="form-check form-check-inline">
+		 
+		  <label >
+		     <input class="form-check-input" type="radio"name="unit" value="year" checked>년도별
+		  </label>
+		</div>
+		<div class="form-check form-check-inline">
+		  
+		  <label >
+		    <input class="form-check-input" type="radio" name="unit" value="month">월별
+		  </label>
+		</div>
+		
+		
+	
+
 	<canvas id="chart" class="h-100 m-auto"></canvas>
 
 </div>
@@ -57,7 +99,36 @@ Chart.defaults.set('plugins.datalabels',{
 	font:{weight: 'bold'},//폰트 굵게
 })
 
+//그래프형태(막대/도넛) 선택시
+$('[name=chart]').change(function(){
+	department();
+})
+//채용인원수 조회 단위(년도별/월별) 선택시 , top3 체크선택/해제시
+$('[name=unit] , #top3').change(function(){
+	hirement_info();
+})
 
+function hirement_info(){
+	if($('#top3').prop('checked')) hirement_top3();
+	else                              hirement();
+}
+
+//부서원수 상위3위까지의 년도별/월별 채용인원수
+function hirement_top3(){
+	initCanvas();
+	var unit = $('[name=unit]:checked').val();
+	$.ajax({
+		url: 'hirement/top3/'+unit,
+	}).done(function(response){
+		console.log(response)
+	})
+}
+
+function initCanvas(){
+	$('#legend').remove();
+	$('canvas#chart').remove();
+	$('#tab-content').append(`<canvas id="chart" class="h-100 m-auto"></canvas>`);
+}
 
 $('ul.nav-tabs li').on({
 	'click':function(){
@@ -65,8 +136,11 @@ $('ul.nav-tabs li').on({
 		$(this).children('a').addClass('active');
 	
 		var idx = $(this).index();
+		$('#tab-content .tab').addClass('d-none');
+		$('#tab-content .tab').eq(idx).removeClass('d-none');
 		if(idx==0)				 department();  //부서원수 조회
-		else if (idx==1) 	     hirement();	//채용인원수 조회
+		else if (idx==1) 	    hirement();	//채용인원수 조회
+		
 		
 	},
 	
@@ -81,6 +155,8 @@ $('ul.nav-tabs li').on({
 
 //부서원수조회
 function department(){
+	initCanvas();
+	
 	$.ajax({
 		url: 'department',
 	}).done(function(response){
@@ -95,8 +171,10 @@ function department(){
 		
 		})
 		console.log(info)
- 		//barChart(info);
-		//lineChart(info);
+// 		lineChart(info);
+		if($('[name=chart]:checked').val()=='bar')
+ 		barChart(info);
+		else
 		donutChart(info);
 	})
 	
@@ -319,9 +397,61 @@ function sampleChart(){
 
 //채용인원수 조회
 function hirement(){
-	
+	initCanvas();
+	var unit = $('[name=unit]:checked').val();
+	$.ajax({
+		url: 'hirement/' + unit,
+	}).done(function(response){
+		console.log(response)
+		var info = new Object();
+		info.datas = new Array(),info.category= [],info.colors=[];
+		$(response).each(function(){
+			info.datas.push(this.count);
+			info.category.push(this.unit);
+			info.colors.push(colors[Math.floor(this.count/10)]); //데이터 수치값 범위에 맞는 색상
+		})
+		console.log(info)
+		info.title=`\${unit == 'year' ? "년도별":"월별"}채용 인원수`
+		unitChart(info);
+		})
+		makeLegend();
 }
 
+//단위별(년도별/월별) 채용인원수 그래프
+function unitChart(info){
+	$('#tab-content').css('height',540);
+	visual = new Chart($('#chart'),{
+		type: 'bar',
+		data: {
+			labels:info.category,
+			datasets:[
+				{
+					data: info.datas,
+					barPercentage: 0.5,
+					backgroundColor: info.colors
+				}
+			]
+		},
+		options:{
+			layout:{padding:{top:30,bottom:20}},
+			plugins:{
+				datalabels:{
+					formatter:function(value){
+						return `\${value}명`;
+					}
+				},
+				legend:{display:false},
+			},
+			responsive: false,
+			maintainAspectRatio:false,
+			scales:{
+				y:{
+					title:{text: info.title,display: true}
+				}
+			}
+		}
+	})
+}
 $(function(){
 	$('ul.nav-tabs li').eq(0).trigger('click');
 })
