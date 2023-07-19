@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import smart.customer.CustomerServiceImpl;
@@ -80,7 +81,7 @@ public class CustomerController {
 	
 	
 	//고객목록화면 요청
-	@RequestMapping("/list.cu")
+	@RequestMapping(value="/list.cu",method= {RequestMethod.POST,RequestMethod.GET})
 	public String list(HttpSession session,Model model,String name) {
 		// null, "" , "홍"
 		session.setAttribute("category", "cu");
