@@ -16,6 +16,14 @@
 	<dependencies>
 	
 	
+	<!-- 첨부파일 업로드용 라이브러리 -->
+<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.5</version>
+</dependency>
+	
+	
 	
 	<!-- Object=>json , StringJson=>Object API -->
 <dependency>
