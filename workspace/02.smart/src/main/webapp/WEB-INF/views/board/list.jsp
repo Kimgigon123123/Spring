@@ -141,7 +141,8 @@ table 태그의 css에서 table-layout: fiexd 로 지정, td에 text-truncate �
 
 
 <jsp:include page="/WEB-INF/views/include/page.jsp"/>
-
+<span></span>
+<p>
 <script>
 //상세정보화면 요청
 function info(id){
